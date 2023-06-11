@@ -1,0 +1,5 @@
+<resources>
+    <string-array name="xposed_scope">
+        <item>android</item>
+    </string-array>
+</resources>

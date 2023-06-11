@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="android:Theme.DeviceDefault.DayNight">
+        <item name="android:windowLightStatusBar">?android:isLightTheme</item>
+        <item name="android:windowLightNavigationBar">?android:isLightTheme</item>
+        <item name="android:navigationBarColor">?android:colorBackground</item>
+    </style>
+</resources>

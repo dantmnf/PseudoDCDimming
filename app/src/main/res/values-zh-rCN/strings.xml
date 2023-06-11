@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">伪 DC 调光</string>
+    <string name="no_prefs_message">在 LSPosed 中启用模块并重新启动应用以保存设置。</string>
+    <string name="xposed_description">通过软件亮度增益为部分 OLED 屏幕在低亮度下启用替代（类 DC）调制方式。</string>
+    <string name="title_activity_settings">模块设置</string>
+    <string name="settings_header">设置</string>
+    <string name="enable_title">启用</string>
+    <string name="minimum_brightness_title">最低硬件亮度</string>
+    <string name="status_header">状态</string>
+    <string name="target_brightness_title">目标亮度</string>
+    <string name="hal_brightness_title">硬件亮度</string>
+    <string name="gain_title">软件亮度（增益）</string>
+    <string name="not_loaded_title">服务未运行</string>
+    <string name="not_loaded_message">在 LSPosed 中启用模块并重新启动设备。</string>
+    <string name="no_prefs_title">无法保存设置</string>
+    <string name="version_mismatch_title">服务版本不匹配</string>
+    <string name="version_mismatch_message">重新启动设备以激活更新后的服务。</string>
+</resources>

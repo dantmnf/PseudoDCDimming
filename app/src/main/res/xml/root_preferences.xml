@@ -1,0 +1,37 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/settings_header">
+        <SwitchPreference
+            android:key="enable"
+            android:title="@string/enable_title" />
+        <EditTextPreference
+            android:defaultValue="100"
+            android:key="minimum_brightness"
+            android:title="@string/minimum_brightness_title"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/status_header">
+
+        <Preference
+            android:key="request_brightness"
+            android:enabled="false"
+            android:title="@string/target_brightness_title"
+            android:summary="@string/loading_summary"/>
+
+        <Preference
+            android:key="actual_brightness"
+            android:enabled="false"
+            android:title="@string/hal_brightness_title"
+            android:summary="@string/loading_summary"/>
+
+        <Preference
+            android:key="gain"
+            android:enabled="false"
+            android:title="@string/gain_title"
+            android:summary="@string/loading_summary"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,26 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+    }
+
+    versionCatalogs {
+        libs {
+            version("refine", "4.3.0")
+            plugin('refine', 'dev.rikka.tools.refine').versionRef('refine')
+        }
+    }
+}
+
+rootProject.name = "PseudoDcBacklight"
+include ':app'
+include ':hidden-api'

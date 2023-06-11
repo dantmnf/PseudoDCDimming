@@ -1,0 +1,43 @@
+plugins {
+    id 'com.android.application'
+    id('dev.rikka.tools.refine') version '4.3.0'
+}
+
+android {
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "xyz.cirno.pseudodcbacklight"
+        minSdk 32
+        targetSdk 33
+        versionCode 1
+        versionName "1.0"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        aidl true
+    }
+    compileOptions {
+        //coreLibraryDesugaringEnabled true
+
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    namespace 'xyz.cirno.pseudodcbacklight'
+}
+
+dependencies {
+    implementation 'net.jcip:jcip-annotations:1.0'
+    compileOnly('androidx.annotation:annotation-jvm:1.6.0')
+    compileOnly project(path: ':hidden-api')
+    compileOnly("de.robv.android.xposed:api:82")
+    // coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.3'
+}

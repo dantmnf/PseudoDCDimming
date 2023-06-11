@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Pseudo DC Backlight</string>
+    <!-- Settings Activity Title -->
+    <string name="title_activity_settings">Module Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="settings_header">Settings</string>
+    <string name="enable_title">Enable</string>
+    <string name="minimum_brightness_title">Minimum HAL brightness</string>
+    <string name="status_header">Status</string>
+    <string name="target_brightness_title">Target brightness</string>
+    <string name="hal_brightness_title">HAL brightness</string>
+    <string name="gain_title">Software brightness (gain)</string>
+
+    <string name="not_loaded_title">Service not running</string>
+    <string name="not_loaded_message">Enable this module in LSPosed and restart.</string>
+
+    <string name="version_mismatch_title">Service version mismatch</string>
+    <string name="version_mismatch_message">Restart the device to activate updated service.</string>
+
+    <string name="no_prefs_title">Settings cannot be saved</string>
+    <string name="no_prefs_message">Enable the module in LSPosed and restart this app to save settings.</string>
+
+    <string name="xposed_description">Enable alternative modulation (likely DC-like) on low brightness for some OLED displays by using software brightness gain.</string>
+    <string name="loading_summary" translatable="false">…</string>
+</resources>

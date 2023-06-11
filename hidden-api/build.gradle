@@ -1,0 +1,25 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    namespace 'xyz.cirno.pseudodcbacklight.hiddenapi'
+
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 32
+        targetSdk 32
+
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    annotationProcessor 'dev.rikka.tools.refine:annotation-processor:4.3.0'
+    compileOnly 'dev.rikka.tools.refine:annotation:4.3.0'
+}
