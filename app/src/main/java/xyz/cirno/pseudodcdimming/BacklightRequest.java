@@ -1,4 +1,4 @@
-package xyz.cirno.pseudodcbacklight;
+package xyz.cirno.pseudodcdimming;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -1,8 +1,6 @@
-package xyz.cirno.pseudodcbacklight.xposed;
+package xyz.cirno.pseudodcdimming.xposed;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Objects;
 
 import de.robv.android.xposed.XposedHelpers;
 

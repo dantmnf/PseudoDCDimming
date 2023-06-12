@@ -1,4 +1,4 @@
-package xyz.cirno.pseudodcbacklight.xposed;
+package xyz.cirno.pseudodcdimming.xposed;
 
 import net.jcip.annotations.Immutable;
 

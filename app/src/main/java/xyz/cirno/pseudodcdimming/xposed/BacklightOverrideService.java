@@ -1,4 +1,4 @@
-package xyz.cirno.pseudodcbacklight.xposed;
+package xyz.cirno.pseudodcdimming.xposed;
 
 import android.annotation.SuppressLint;
 import android.os.RemoteException;
@@ -15,12 +15,12 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
-import xyz.cirno.pseudodcbacklight.BacklightOverridePreference;
-import xyz.cirno.pseudodcbacklight.BacklightRequest;
-import xyz.cirno.pseudodcbacklight.BuildConfig;
-import xyz.cirno.pseudodcbacklight.IBacklightOverrideService;
-import xyz.cirno.pseudodcbacklight.IBacklightOverrideStateListener;
-import xyz.cirno.pseudodcbacklight.util.PerceptualQuantizer;
+import xyz.cirno.pseudodcdimming.BacklightOverridePreference;
+import xyz.cirno.pseudodcdimming.BacklightRequest;
+import xyz.cirno.pseudodcdimming.BuildConfig;
+import xyz.cirno.pseudodcdimming.IBacklightOverrideService;
+import xyz.cirno.pseudodcdimming.IBacklightOverrideStateListener;
+import xyz.cirno.pseudodcdimming.util.PerceptualQuantizer;
 
 
 public class BacklightOverrideService {

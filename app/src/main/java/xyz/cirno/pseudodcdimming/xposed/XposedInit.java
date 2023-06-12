@@ -1,4 +1,4 @@
-package xyz.cirno.pseudodcbacklight.xposed;
+package xyz.cirno.pseudodcdimming.xposed;
 
 import android.content.pm.IPackageManager;
 import android.os.Binder;
@@ -12,11 +12,11 @@ import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
-import xyz.cirno.pseudodcbacklight.BacklightRequest;
-import xyz.cirno.pseudodcbacklight.BuildConfig;
-import xyz.cirno.pseudodcbacklight.IBacklightOverrideService;
-import xyz.cirno.pseudodcbacklight.IPCUtil;
-import xyz.cirno.pseudodcbacklight.ServiceDiscoveryResult;
+import xyz.cirno.pseudodcdimming.BacklightRequest;
+import xyz.cirno.pseudodcdimming.BuildConfig;
+import xyz.cirno.pseudodcdimming.IBacklightOverrideService;
+import xyz.cirno.pseudodcdimming.IPCUtil;
+import xyz.cirno.pseudodcdimming.ServiceDiscoveryResult;
 
 public class XposedInit implements IXposedHookLoadPackage {
     private static final String TAG = "PseudoDcBacklight.Xposed";

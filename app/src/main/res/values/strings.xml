@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pseudo DC Backlight</string>
+    <string name="app_name">Pseudo DC Dimming</string>
     <!-- Settings Activity Title -->
     <string name="title_activity_settings">Module Settings</string>
 

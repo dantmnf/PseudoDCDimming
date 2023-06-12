@@ -1,4 +1,4 @@
-package xyz.cirno.pseudodcbacklight.xposed;
+package xyz.cirno.pseudodcdimming.xposed;
 
 import java.lang.reflect.Method;
 

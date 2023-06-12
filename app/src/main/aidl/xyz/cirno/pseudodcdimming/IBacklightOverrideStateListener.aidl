@@ -1,5 +1,5 @@
 // IBacklightOverrideStateListener.aidl
-package xyz.cirno.pseudodcbacklight;
+package xyz.cirno.pseudodcdimming;
 
 parcelable BacklightRequest;
 

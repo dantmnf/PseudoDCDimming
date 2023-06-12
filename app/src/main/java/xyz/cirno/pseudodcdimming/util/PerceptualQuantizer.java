@@ -1,4 +1,4 @@
-package xyz.cirno.pseudodcbacklight.util;
+package xyz.cirno.pseudodcdimming.util;
 
 public class PerceptualQuantizer {
     private static final double m1 = 2610.0 / 16384.0;

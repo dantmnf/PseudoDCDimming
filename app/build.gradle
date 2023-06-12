@@ -7,7 +7,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "xyz.cirno.pseudodcbacklight"
+        applicationId "xyz.cirno.pseudodcdimming"
         minSdk 32
         targetSdk 33
         versionCode 1
@@ -33,7 +33,7 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
 
-    namespace 'xyz.cirno.pseudodcbacklight'
+    namespace 'xyz.cirno.pseudodcdimming'
 }
 
 dependencies {
