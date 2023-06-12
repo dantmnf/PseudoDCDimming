@@ -8,6 +8,8 @@
             android:defaultValue="100"
             android:key="minimum_brightness"
             android:title="@string/minimum_brightness_title"
+            android:inputType="numberDecimal"
+            android:selectAllOnFocus="true"
             />
 
     </PreferenceCategory>
@@ -16,22 +18,34 @@
 
         <Preference
             android:key="request_brightness"
-            android:enabled="false"
+            android:selectable="false"
             android:title="@string/target_brightness_title"
             android:summary="@string/loading_summary"/>
 
         <Preference
             android:key="actual_brightness"
-            android:enabled="false"
+            android:selectable="false"
             android:title="@string/hal_brightness_title"
             android:summary="@string/loading_summary"/>
 
         <Preference
             android:key="gain"
-            android:enabled="false"
+            android:selectable="false"
             android:title="@string/gain_title"
             android:summary="@string/loading_summary"/>
 
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/about_title">
+        <Preference
+            android:key="version"
+            android:selectable="false"
+            android:title="@string/version_title"
+            android:summary="@string/app_version_name"/>
+        <Preference
+            android:key="project_home"
+            android:title="@string/project_home_title"
+            android:summary="@string/project_url"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

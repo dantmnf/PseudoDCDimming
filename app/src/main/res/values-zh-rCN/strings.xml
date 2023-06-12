@@ -16,4 +16,7 @@
     <string name="no_prefs_title">无法保存设置</string>
     <string name="version_mismatch_title">服务版本不匹配</string>
     <string name="version_mismatch_message">重新启动设备以激活更新后的服务。</string>
+    <string name="about_title">关于</string>
+    <string name="version_title">版本</string>
+    <string name="project_home_title">项目主页</string>
 </resources>

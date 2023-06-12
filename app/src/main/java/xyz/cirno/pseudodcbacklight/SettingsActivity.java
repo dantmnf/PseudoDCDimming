@@ -2,7 +2,9 @@ package xyz.cirno.pseudodcbacklight;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -206,6 +208,11 @@ public class SettingsActivity extends Activity {
             requestBacklightPref = findPreference("request_brightness");
             overrideBacklightPref = findPreference("actual_brightness");
             gainPref = findPreference("gain");
+
+            findPreference("project_home").setOnPreferenceClickListener(p -> {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getResources().getString(R.string.project_url))));
+                return true;
+            });
         }
 
         @Override
