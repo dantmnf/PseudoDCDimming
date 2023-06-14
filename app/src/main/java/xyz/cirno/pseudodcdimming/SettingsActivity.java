@@ -222,7 +222,8 @@ public class SettingsActivity extends Activity {
             super.onResume();
             final SettingsActivity activity = (SettingsActivity) getActivity();
             if (activity == null || activity.service == null) {
-                getPreferenceScreen().setEnabled(false);
+                findPreference("settings").setEnabled(false);
+                findPreference("status").setEnabled(false);
             } else {
                 try {
                     var pref = service.getPreference();
