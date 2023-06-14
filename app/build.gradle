@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "xyz.cirno.pseudodcdimming"
-        minSdk 32
+        minSdk 31
         targetSdk 33
         versionCode 1
         versionName "1.0"

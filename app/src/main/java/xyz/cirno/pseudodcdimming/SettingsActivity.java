@@ -47,7 +47,7 @@ public class SettingsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
 
-        service = IPCUtil.getService();
+        service = ServiceDiscovery.getService();
         try {
             xsp = getSharedPreferences("config", MODE_WORLD_READABLE);
         } catch (SecurityException e) {
@@ -76,7 +76,7 @@ public class SettingsActivity extends Activity {
         if (service == null) {
             errorLevel |= ERROR_SERVICE_NOT_FOUND;
         }
-        if (IPCUtil.isVersionMismatch()) {
+        if (ServiceDiscovery.isVersionMismatch()) {
             errorLevel |= ERROR_VERSION_MISMATCH;
         }
         if (xsp == null) {
@@ -233,7 +233,6 @@ public class SettingsActivity extends Activity {
             }
         }
 
-        @SuppressWarnings("ConstantConditions")
         public void updateStatus(BacklightRequest request, BacklightRequest effective, float gain) {
             requestBacklightPref.setSummary(String.format(Locale.ROOT, "%.2f%% (%.2f cd/m²)", request.backlightLevel * 100, request.backlightNits));
             overrideBacklightPref.setSummary(String.format(Locale.ROOT, "%.2f%% (%.2f cd/m²)", effective.backlightLevel * 100, effective.backlightNits));

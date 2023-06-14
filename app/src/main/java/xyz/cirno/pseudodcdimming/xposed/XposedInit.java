@@ -15,7 +15,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 import xyz.cirno.pseudodcdimming.BacklightRequest;
 import xyz.cirno.pseudodcdimming.BuildConfig;
 import xyz.cirno.pseudodcdimming.IBacklightOverrideService;
-import xyz.cirno.pseudodcdimming.IPCUtil;
+import xyz.cirno.pseudodcdimming.ServiceDiscovery;
 import xyz.cirno.pseudodcdimming.ServiceDiscoveryResult;
 
 public class XposedInit implements IXposedHookLoadPackage {
@@ -26,26 +26,6 @@ public class XposedInit implements IXposedHookLoadPackage {
         if ("android".equals(lpparam.packageName)) {
             handleLoadSystemServer(lpparam);
         }
-    }
-
-    private static int resolveGainLayer(ClassLoader classLoader) {
-        var displayTransformManagerClass = XposedHelpers.findClass("com.android.server.display.color.DisplayTransformManager", classLoader);
-
-        final var invertColorLayerField = XposedHelpers.findFieldIfExists(
-                displayTransformManagerClass,
-                "LEVEL_COLOR_MATRIX_INVERT_COLOR"
-        );
-
-
-        int gainLayer = 299;
-        try {
-            if (invertColorLayerField != null) {
-                gainLayer = invertColorLayerField.getInt(null);
-            }
-        } catch (IllegalAccessException e) {
-            // ignore
-        }
-        return gainLayer;
     }
 
     private void handleLoadSystemServer(XC_LoadPackage.LoadPackageParam lpparam) {
@@ -67,9 +47,6 @@ public class XposedInit implements IXposedHookLoadPackage {
             float.class,  // backlight
             float.class   // nits
         );
-
-        final var gainLayer = resolveGainLayer(classLoader);
-
 
         XposedHelpers.findAndHookConstructor(localDisplayDevice,
             localDisplayAdapter,     // [surrounding this]
@@ -175,7 +152,7 @@ public class XposedInit implements IXposedHookLoadPackage {
 
                     final int code = (int)param.args[0];
 
-                    if (code != IPCUtil.TRANSACTION_SERVICE_DISCOVERY) return;
+                    if (code != ServiceDiscovery.TRANSACTION_SERVICE_DISCOVERY) return;
 
                     final Parcel data = (Parcel)param.args[1];
                     final Parcel reply = (Parcel)param.args[2];
@@ -192,7 +169,7 @@ public class XposedInit implements IXposedHookLoadPackage {
 
                     if (!BuildConfig.APPLICATION_ID.equals(callingpackage)) return;
 
-                    if (code == IPCUtil.TRANSACTION_SERVICE_DISCOVERY) {
+                    if (code == ServiceDiscovery.TRANSACTION_SERVICE_DISCOVERY) {
                         if (reply == null) {
                             param.setResult(false);
                             return;
@@ -204,12 +181,6 @@ public class XposedInit implements IXposedHookLoadPackage {
                         param.setResult(true);
                     }
                 }
-
-                @Override
-                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-                    super.afterHookedMethod(param);
-                }
             });
-
     }
 }

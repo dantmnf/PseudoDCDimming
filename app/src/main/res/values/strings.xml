@@ -28,5 +28,5 @@
     <string name="about_title">About</string>
     <string name="version_title">Version</string>
     <string name="project_home_title">Project home</string>
-    <string name="project_url" translatable="false">https://github.com/dantmnf/PseudoDCBacklight</string>
+    <string name="project_url" translatable="false">https://github.com/dantmnf/PseudoDCDimming</string>
 </resources>

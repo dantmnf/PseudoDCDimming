@@ -1,11 +1,12 @@
 package xyz.cirno.pseudodcdimming;
 
+import android.content.Context;
 import android.os.IBinder;
 import android.os.Parcel;
 import android.os.ServiceManager;
 import android.util.Log;
 
-public class IPCUtil {
+public class ServiceDiscovery {
     public static final int TRANSACTION_SERVICE_DISCOVERY = 0x67000000 | 114514;
     private static boolean _isVersionMismatch = false;
     private static IBinder displayManager;
@@ -13,7 +14,7 @@ public class IPCUtil {
     private static IBinder getDisplayManager() {
         if (displayManager == null) {
             try {
-                displayManager = ServiceManager.getService("display");
+                displayManager = ServiceManager.getService(Context.DISPLAY_SERVICE);
             } catch (Exception e) {
                 Log.e("IPCUtil", "failed to call ServiceManager.getService, module not enabled?");
             }
