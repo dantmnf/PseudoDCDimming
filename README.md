@@ -23,3 +23,7 @@ By limiting the minimum brightness and scaling down the output signal through a 
 ## Configuration
 
 Use the high-speed shutter mode of the camera to amplify the stroboscopic effect, or use professional instruments to measure the PWM frequency and duty cycle. Choose an acceptable brightness value as the minimum hardware brightness.
+
+## Acknowledgements
+
+Inspired from [ztc1997/FakeDCBacklight](https://github.com/ztc1997/FakeDCBacklight). This project additionally implements immediate application as well as stabilizing the brightness before and after enabling.
