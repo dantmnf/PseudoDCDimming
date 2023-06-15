@@ -6,4 +6,5 @@ package xyz.cirno.pseudodcdimming;
 parcelable BacklightOverridePreference {
     boolean enabled;
     float minimumOverrideBacklightLevel;
+    boolean duplicateApplicationWorkaround;
 }

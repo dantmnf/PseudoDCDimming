@@ -29,4 +29,6 @@
     <string name="version_title">Version</string>
     <string name="project_home_title">Project home</string>
     <string name="project_url" translatable="false">https://github.com/dantmnf/PseudoDCDimming</string>
+    <string name="gain_applied_twice_title" >Duplicated gain workaround</string>
+    <string name="gain_applied_twice_summary" >Some devices will erroneously apply the gain twice, we can get around this by sending the square root of the gain.</string>
 </resources>

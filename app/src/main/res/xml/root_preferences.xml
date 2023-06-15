@@ -11,6 +11,11 @@
             android:inputType="numberDecimal"
             android:selectAllOnFocus="true"
             />
+        <CheckBoxPreference
+            android:key="gain_applied_twice"
+            android:title="@string/gain_applied_twice_title"
+            android:summary="@string/gain_applied_twice_summary"
+            />
 
     </PreferenceCategory>
 

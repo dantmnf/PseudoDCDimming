@@ -19,4 +19,6 @@
     <string name="about_title">关于</string>
     <string name="version_title">版本</string>
     <string name="project_home_title">项目主页</string>
+    <string name="gain_applied_twice_title" >修复重复应用的增益</string>
+    <string name="gain_applied_twice_summary" >一些设备会错误地应用两次增益，我们可以通过发送增益的平方根来绕过这个问题。</string>
 </resources>

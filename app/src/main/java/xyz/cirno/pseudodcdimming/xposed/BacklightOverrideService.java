@@ -57,10 +57,12 @@ public class BacklightOverrideService {
             var xsp = new XSharedPreferences(BuildConfig.APPLICATION_ID, "config");
             pref.enabled = xsp.getBoolean("enabled", false);
             pref.minimumOverrideBacklightLevel = xsp.getFloat("minimum_brightness", 0.0f);
+            pref.duplicateApplicationWorkaround = xsp.getBoolean("gain_applied_twice", false);
         } catch (Exception e) {
             Log.e(TAG, "failed to read persistent preference", e);
             pref.enabled = false;
             pref.minimumOverrideBacklightLevel = 0.0f;
+            pref.duplicateApplicationWorkaround = false;
         }
         return pref;
     }
@@ -150,7 +152,7 @@ public class BacklightOverrideService {
         Log.d(TAG, String.format(Locale.ROOT, "setPreference: enabled=%s, minimumOverrideBacklightLevel=%f, minimumOverrideBacklightNits=%f",
                 pref.enabled, pref.minimumOverrideBacklightLevel, newMinimumNits));
 
-        preference.set(new BacklightOverridePreferenceLocal(pref.enabled, pref.minimumOverrideBacklightLevel, newMinimumNits));
+        preference.set(new BacklightOverridePreferenceLocal(pref.enabled, pref.minimumOverrideBacklightLevel, newMinimumNits, pref.duplicateApplicationWorkaround));
 
         final var lastRequest = getLastBacklightRequest();
         // skip refresh if setBacklight is not called yet
@@ -179,6 +181,7 @@ public class BacklightOverrideService {
         var result = new BacklightOverridePreference();
         result.enabled = pref.enabled;
         result.minimumOverrideBacklightLevel = pref.minimumOverrideBacklightLevel;
+        result.duplicateApplicationWorkaround = pref.duplicateApplicationWorkaround;
         return result;
     }
 
@@ -239,6 +242,9 @@ public class BacklightOverrideService {
     }
 
     public void setTransformGain(float gain) {
+        if (getPreference().duplicateApplicationWorkaround) {
+            gain = (float)Math.sqrt(gain);
+        }
         final var dtm = getTransformManager();
         if (dtm != null) {
             // if (!dtm.needsLinearColorMatrix()) {
@@ -248,7 +254,7 @@ public class BacklightOverrideService {
                     gain, 0f, 0f, 0f,
                     0f, gain, 0f, 0f,
                     0f, 0f, gain, 0f,
-                    0f, 0f, 0f, 0f
+                    0f, 0f, 0f, 1f
             };
             dtm.setColorMatrix(gainLayer, mtx);
         }

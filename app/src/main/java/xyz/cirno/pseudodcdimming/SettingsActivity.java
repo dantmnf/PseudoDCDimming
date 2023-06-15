@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.RemoteException;
 import android.os.SystemClock;
+import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -110,6 +111,7 @@ public class SettingsActivity extends Activity {
         }
         boolean dirty = xsp.getBoolean("enabled", false) != pref.enabled;
         dirty = dirty || xsp.getFloat("minimum_brightness", 0.0f) != pref.minimumOverrideBacklightLevel;
+        dirty = dirty || xsp.getBoolean("gain_applied_twice", false) != pref.duplicateApplicationWorkaround;
 
         if (dirty) {
             writeXSharedPreferences(pref);
@@ -121,6 +123,7 @@ public class SettingsActivity extends Activity {
         xsp.edit()
                 .putBoolean("enabled", pref.enabled)
                 .putFloat("minimum_brightness", pref.minimumOverrideBacklightLevel)
+                .putBoolean("gain_applied_twice", pref.duplicateApplicationWorkaround)
                 .apply();
     }
     private void updateStatus() {
@@ -158,6 +161,7 @@ public class SettingsActivity extends Activity {
         private IBacklightOverrideService service;
         private SwitchPreference enablePref;
         private EditTextPreference minimumBrightnessPref;
+        private CheckBoxPreference gainAppliedTwicePref;
 
         private Preference requestBacklightPref;
         private Preference overrideBacklightPref;
@@ -207,6 +211,21 @@ public class SettingsActivity extends Activity {
                 });
             }
 
+            gainAppliedTwicePref = (CheckBoxPreference) findPreference("gain_applied_twice");
+            if (gainAppliedTwicePref != null) {
+                gainAppliedTwicePref.setOnPreferenceChangeListener((p, v) -> {
+                    try {
+                        final var pref = service.getPreference();
+                        pref.duplicateApplicationWorkaround = (Boolean) v;
+                        service.putPreference(pref);
+                        activity.writeXSharedPreferences(pref);
+                        return true;
+                    } catch (Exception e) {
+                        return false;
+                    }
+                });
+            }
+
             requestBacklightPref = findPreference("request_brightness");
             overrideBacklightPref = findPreference("actual_brightness");
             gainPref = findPreference("gain");
@@ -229,6 +248,7 @@ public class SettingsActivity extends Activity {
                     var pref = service.getPreference();
                     enablePref.setChecked(pref.enabled);
                     updateMinimumBrightnessPreference(pref.minimumOverrideBacklightLevel);
+                    gainAppliedTwicePref.setChecked(pref.duplicateApplicationWorkaround);
                 } catch (Exception e) {
                     // ignore
                 }

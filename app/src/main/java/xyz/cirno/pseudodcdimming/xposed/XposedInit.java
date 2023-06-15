@@ -6,6 +6,9 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.os.ServiceManager;
+import android.util.Log;
+
+import java.util.Locale;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
@@ -100,7 +103,6 @@ public class XposedInit implements IXposedHookLoadPackage {
                 final var requestSdrNits = (float)param.args[1];
                 final var requestBacklight = (float)param.args[2];
                 final var requestNits = (float)param.args[3];
-                // Log.d(TAG, String.format(Locale.ROOT, "setBacklight(%f, %f, %f, %f)", requestSdrBacklight, requestSdrNits, requestBacklight, requestNits));
 
                 var request = new BacklightRequest(requestSdrBacklight, requestSdrNits, requestBacklight, requestNits);
 
@@ -112,6 +114,15 @@ public class XposedInit implements IXposedHookLoadPackage {
                 param.args[1] = overrideBacklight.sdrBacklightNits;
                 param.args[2] = overrideBacklight.backlightLevel;
                 param.args[3] = overrideBacklight.backlightNits;
+                Log.d(TAG, String.format(Locale.ROOT, "setBacklight(%f->%f, %f->%f, %f->%f, %f->%f)",
+                        requestSdrBacklight,
+                        overrideBacklight.sdrBacklightLevel,
+                        requestSdrNits,
+                        overrideBacklight.sdrBacklightNits,
+                        requestBacklight,
+                        overrideBacklight.backlightLevel,
+                        requestNits,
+                        overrideBacklight.backlightNits));
 
                 if (overrideBacklight.backlightLevel > prevOverride.overrideRequest.backlightLevel) {
                     // increased hardware brightness:

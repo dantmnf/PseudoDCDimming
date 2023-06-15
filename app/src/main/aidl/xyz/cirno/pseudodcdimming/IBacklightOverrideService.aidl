@@ -5,7 +5,7 @@ import xyz.cirno.pseudodcdimming.IBacklightOverrideStateListener;
 import xyz.cirno.pseudodcdimming.BacklightOverridePreference;
 
 interface IBacklightOverrideService {
-    const int VERSION = 2;
+    const int VERSION = 3;
     BacklightOverridePreference getPreference();
     void putPreference(in BacklightOverridePreference pref);
 
