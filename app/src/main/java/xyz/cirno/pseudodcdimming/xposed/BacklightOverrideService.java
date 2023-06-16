@@ -11,7 +11,6 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicReference;
 
 import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.XposedHelpers;
@@ -27,9 +26,9 @@ public class BacklightOverrideService {
     private static final String TAG = "BacklightOverrideService";
     private final ClassLoader systemServerClassLoader;
     public final IBacklightOverrideService binderService = new BinderService();
-    private final AtomicReference<BacklightRequest> lastBacklightRequest = new AtomicReference<>(BacklightRequest.INVALID);
-    private final AtomicReference<BacklightOverrideState> lastBacklightOverride = new AtomicReference<>(BacklightOverrideState.INVALID);
-    private final AtomicReference<BacklightOverridePreferenceLocal> preference = new AtomicReference<>(BacklightOverridePreferenceLocal.DEFAULT);
+    private volatile BacklightRequest lastBacklightRequest = BacklightRequest.INVALID;
+    private volatile BacklightOverrideState lastBacklightOverride = BacklightOverrideState.INVALID;
+    private volatile BacklightOverridePreferenceLocal preference = BacklightOverridePreferenceLocal.DEFAULT;
     public float deviceMinimumBacklightNits = Float.NaN;
     public BacklightAdapterProxy backlightAdapter;
     public DisplayDeviceConfigProxy displayDeviceConfig;
@@ -159,7 +158,7 @@ public class BacklightOverrideService {
         Log.d(TAG, String.format(Locale.ROOT, "setPreference: enabled=%s, minimumOverrideBacklightLevel=%f, minimumOverrideBacklightNits=%f",
                 pref.enabled, pref.minimumOverrideBacklightLevel, newMinimumNits));
 
-        preference.set(new BacklightOverridePreferenceLocal(pref.enabled, pref.minimumOverrideBacklightLevel, newMinimumNits, pref.duplicateApplicationWorkaround));
+        preference = new BacklightOverridePreferenceLocal(pref.enabled, pref.minimumOverrideBacklightLevel, newMinimumNits, pref.duplicateApplicationWorkaround);
 
         final var lastRequest = getLastBacklightRequest();
         // skip refresh if setBacklight is not called yet
@@ -180,7 +179,7 @@ public class BacklightOverrideService {
     }
 
     public BacklightOverridePreferenceLocal getPreference() {
-        return preference.get();
+        return preference;
     }
 
     private BacklightOverridePreference getPreferenceForBinder() {
@@ -193,19 +192,19 @@ public class BacklightOverrideService {
     }
 
     public BacklightRequest getLastBacklightRequest() {
-        return lastBacklightRequest.get();
+        return lastBacklightRequest;
     }
 
     private void setLastBacklightRequest(BacklightRequest request) {
-        lastBacklightRequest.set(request);
+        lastBacklightRequest = request;
     }
 
     public void setLastBacklightOverride(BacklightOverrideState state) {
-        lastBacklightOverride.set(state);
+        lastBacklightOverride = state;
     }
 
     public BacklightOverrideState getLastBacklightOverrideState() {
-        return lastBacklightOverride.get();
+        return lastBacklightOverride;
     }
 
     public BacklightOverrideState getOverrideBacklightAndGain(BacklightRequest request) {
