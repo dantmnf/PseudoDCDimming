@@ -143,7 +143,14 @@ public class BacklightOverrideService {
         }
     }
 
+    private boolean validatePreference(BacklightOverridePreference pref) {
+        if (pref.minimumOverrideBacklightLevel < 0.0f || pref.minimumOverrideBacklightLevel > 1.0f)
+            return false;
+        return true;
+    }
+
     private void setPreference(BacklightOverridePreference pref) {
+        if (!validatePreference(pref)) return;
         float newMinimumNits = 2.0f;
         if (displayDeviceConfig != null) {
             newMinimumNits = displayDeviceConfig.getNitsFromBacklight(pref.minimumOverrideBacklightLevel);

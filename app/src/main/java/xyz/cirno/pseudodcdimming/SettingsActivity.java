@@ -199,6 +199,7 @@ public class SettingsActivity extends Activity {
                 minimumBrightnessPref.setOnPreferenceChangeListener((p, v) -> {
                     try {
                         final var fvalue = Float.parseFloat((String) v) / 100.0f;
+                        if (fvalue > 1.0f || fvalue < 0.0f) return false;
                         final var pref = service.getPreference();
                         pref.minimumOverrideBacklightLevel = fvalue;
                         service.putPreference(pref);
