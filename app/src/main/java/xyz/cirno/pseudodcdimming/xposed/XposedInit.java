@@ -2,6 +2,7 @@ package xyz.cirno.pseudodcdimming.xposed;
 
 import android.content.pm.IPackageManager;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -33,6 +34,10 @@ public class XposedInit implements IXposedHookLoadPackage {
 
     private void handleLoadSystemServer(XC_LoadPackage.LoadPackageParam lpparam) {
         final var classLoader = lpparam.classLoader;
+
+        if (Build.VERSION.SDK_INT >= 34) {
+            DisplayControlProxy.initialize(classLoader);
+        }
 
         final var overrideService = new BacklightOverrideService(classLoader);
 
@@ -81,7 +86,8 @@ public class XposedInit implements IXposedHookLoadPackage {
                             return;
                         }
                         final var token = (IBinder)param.args[0];
-                        final var staticInfo = android.view.SurfaceControlHidden.getStaticDisplayInfo(token);
+                        final var staticInfo = SurfaceControlCompat.getStaticDisplayInfo(token);
+                        if (staticInfo == null) return;
                         XposedHelpers.setAdditionalInstanceField(
                                 param.thisObject,
                                 ATTACHED_IS_INTERNAL,
