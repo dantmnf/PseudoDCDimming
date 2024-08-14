@@ -1,6 +1,6 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/settings_header">
+    <PreferenceCategory android:title="@string/settings_header" android:key="settings">
         <SwitchPreference
             android:key="enable"
             android:title="@string/enable_title" />
@@ -19,7 +19,7 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/status_header">
+    <PreferenceCategory android:title="@string/status_header" android:key="status">
 
         <Preference
             android:key="request_brightness"
