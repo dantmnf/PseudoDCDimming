@@ -55,6 +55,30 @@ public class XposedInit implements IXposedHookLoadPackage {
             float.class,  // backlight
             float.class   // nits
         );
+        // Xiaomi HyperOS 2 compat
+        var backlightAdapter_setBacklight_hookTarget = backlightAdapter_setBacklight;
+        var miuiVersion = XposedHelpers.callStaticMethod(
+            XposedHelpers.findClass("android.os.SystemProperties", classLoader),
+            "get",
+            "ro.mi.os.version.name"
+        );
+        if("OS2.0".equals(miuiVersion)) {
+            try {
+                final var backlightAdapter_setBacklight_miui = XposedHelpers.findMethodExact(
+                    backlightAdapter,
+                    "setBacklight",
+                    float.class,  // sdrBacklight
+                    float.class,  // sdrNits
+                    float.class,  // backlight
+                    float.class,  // nits
+                    boolean.class     // galleryHdrBoost
+                );
+                Log.i(TAG, "HyperOS 2 detected, using dedicated hook target");
+                backlightAdapter_setBacklight_hookTarget = backlightAdapter_setBacklight_miui;
+            } catch (NoSuchMethodError e) {
+                Log.i(TAG, "HyperOS 2 detected, but the HyperOS-specific hook target couldn't be found; ignoring");
+            }
+        }
 
         XposedHelpers.findAndHookConstructor(localDisplayDevice,
             localDisplayAdapter,     // [surrounding this]
@@ -99,7 +123,7 @@ public class XposedInit implements IXposedHookLoadPackage {
                     }
                 });
 
-        XposedBridge.hookMethod(backlightAdapter_setBacklight, new XC_MethodHook() {
+        XposedBridge.hookMethod(backlightAdapter_setBacklight_hookTarget, new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                 // void setBacklight(float sdrBacklight, float sdrNits, float backlight, float nits)
@@ -120,6 +144,7 @@ public class XposedInit implements IXposedHookLoadPackage {
                 param.args[1] = overrideBacklight.sdrBacklightNits;
                 param.args[2] = overrideBacklight.backlightLevel;
                 param.args[3] = overrideBacklight.backlightNits;
+                // HyperOS 2: leave galleryHdrBoost argument unchanged
                 Log.d(TAG, String.format(Locale.ROOT, "setBacklight(%f->%f, %f->%f, %f->%f, %f->%f)",
                         requestSdrBacklight,
                         overrideBacklight.sdrBacklightLevel,
